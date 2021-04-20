@@ -3,17 +3,29 @@
 var gCanvas
 var gCtx
 
+function init() {
+    renderImgs()
+    renderMemes()
+    renderKeywords()
+}
 
 function openCanvas(imgId) {
     createMeme(imgId)
     gCanvas = document.querySelector('#editor-canvas')
     gCtx = gCanvas.getContext('2d')
+    openEditor()
     renderCanvas()
-    toggleCanvas()
+    selectInput()
+    focusInput()
 }
 
-function renderCanvas() {
-    var meme = getMeme()
+function renderCanvas(editMeme) {
+    var meme
+    if (!editMeme) {
+        meme = getMeme()
+    } else {
+        meme = editMeme
+    }
     var img = new Image()
     img.src = `img/${meme.selectedImgId}.jpg`
     img.onload = () => {
@@ -22,7 +34,7 @@ function renderCanvas() {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         meme.lines.forEach(function (line) {
             drawText(line, line.pos.x, line.pos.y)
-            drawRect()
+            // drawRect()
         });
     }
 }
@@ -35,16 +47,19 @@ function onSetText(txt) {
 function onAddLine() {
     addLine()
     renderCanvas()
+    focusInput()
 }
 
 function onSwitchLine() {
     switchLine()
     renderCanvas()
+    focusInput()
 }
 
 function onRemoveLine() {
     removeLine()
     renderCanvas()
+    focusInput()
 }
 
 function renderInputText() {
@@ -69,43 +84,126 @@ function drawRect() {
     gCtx.strokeRect(currLine.pos.x - (strLength.width / 2), currLine.pos.y - currLine.size, strLength.width, currLine.size)
 }
 
-function toggleCanvas() {
-    var elGallery = document.querySelector('.gallery-container')
-    var elEditor = document.querySelector('.editor-container')
-    if (elEditor.style.display = "none") {
-        elGallery.style.display = "none"
-        elEditor.style.display = "flex"
-    } else {
-        elGallery.style.display = "flex"
-        elEditor.style.display = "none"
-    }
+function openGallery() {
+    renderImgs()
+    document.querySelector('.gallery-container').style.display = "flex"
+    document.querySelector('.meme-container').style.display = "none"
+    document.querySelector('.editor-container').style.display = "none"
+}
+
+function openEditor() {
+    document.querySelector('.gallery-container').style.display = "none"
+    document.querySelector('.meme-container').style.display = "none"
+    document.querySelector('.editor-container').style.display = "flex"
+}
+
+function openMeme() {
+    document.querySelector('.gallery-container').style.display = "none"
+    document.querySelector('.meme-container').style.display = "grid"
+    document.querySelector('.editor-container').style.display = "none"
 }
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
 }
 
-function onChangeFontSize(diff){
+function onChangeFontSize(diff) {
     changeFontSize(diff)
     renderCanvas()
 }
 
-function onSetTextAlign(alignKey){
+function onSetTextAlign(alignKey) {
     setTextAlign(alignKey)
     renderCanvas()
 }
 
-function onChangeTextPosY(diff){
+function onChangeTextPosY(diff) {
     ChangeTextPosY(diff)
     renderCanvas()
 }
 
-function onChangeTextPosX(diff){
+function onChangeTextPosX(diff) {
     ChangeTextPosX(diff)
     renderCanvas()
 }
 
-function renderImgs(){
-    var strHTML = getImgStrHtml()
+function onSaveMeme(ev) {
+    ev.preventDefault()
+    var imgContent = gCanvas.toDataURL('image/jpeg')
+    saveMeme(imgContent)
+    renderMemes()
+    openMeme()
+}
+
+function renderImgs(key) {
+    var strHTML = getImgStrHtml(key)
     document.querySelector('.img-gallery').innerHTML = strHTML
+}
+
+function renderMemes() {
+    var memes = loadMemes()
+    var strHTMLs = memes.map(function (meme) {
+        return `
+            <div class="meme-card flex column">
+                <img src="${meme.imgContent}">
+                <div class="crudl-btn-container">
+                    <button class="btn-crudl btn-crudl-remove" onclick="onRemoveMeme('${meme.imgContent}')"><img src="img/remove.png"></button>
+                    <button class="btn-crudl btn-crudl-edit" onclick="onEditMeme('${meme.imgContent}')"><img src="img/btn-edit.png"></button>
+                </div>
+            </div>
+        `
+    })
+    var strHTML = strHTMLs.join('')
+    document.querySelector('.meme-container').innerHTML = strHTML
+}
+
+function focusInput() {
+    var elInput = document.querySelector('.input-meme-text')
+    elInput.focus()
+}
+
+function selectInput() {
+    var elInput = document.querySelector('.input-meme-text')
+    elInput.select()
+}
+
+function downloadImg(elLink) {
+    var imgContent = gCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
+
+function onRemoveMeme(imgContent) {
+    removeMeme(imgContent)
+    renderMemes()
+}
+
+function onEditMeme(imgContent) {
+    var meme = getMemeByImg(imgContent)
+    removeMeme(imgContent)
+    openEditor()
+    renderCanvas(meme)
+    focusInput()
+    selectInput()
+}
+
+function renderImgByStr(str){
+    var key = str.toLowerCase()
+    renderImgs(key)
+}
+
+function renderKeywords(){
+    var keywordsMap = getKeywords()
+    var strHTMLs = keywordsMap.map(function(keyword){
+        return `
+        <span style="font-size: calc(12px + ${keyword.clicks}px);" onclick="renderImgByStr('${keyword.key}') , onUpdateKeyword('${keyword.key}')">${keyword.key}</span>
+        `
+    })
+    var strHTML = strHTMLs.join('')
+    document.querySelector('.keywords-area').innerHTML = strHTML
+}
+
+
+function onUpdateKeyword(keyword){
+    updateKeyword(keyword)
+    renderKeywords()
 }

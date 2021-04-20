@@ -68,6 +68,11 @@ input {
     flex-direction: column;
 }
 
+.search-area{
+    display: flex;
+}
+
+
 .input-keywords {
     background: url(/img/btn-search.png) no-repeat scroll;
     background-size: 8%;
@@ -79,21 +84,36 @@ input {
     padding: 3px 20px;
 }
 
+@media (max-width: 800px){
+    .search-area{
+        flex-direction: column;
+    }
+
+    .input-keywords {
+        background-size: 3%;
+        background-position-x: 95%;
+        background-position-y: 50%;
+        padding: 3px 20px;
+    }
+}
+
 .keywords-area {
+    display: flex;
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     background-color: rgba(255, 255, 255, 0.4);
     color: rgb(255, 255, 255);
     height: 3rem;
     flex-grow: 1;
-}
-
-.keywords-area>* {
+    font-weight: 200;
+    align-items: center;
+    justify-content: space-around;
     cursor: pointer;
+    gap: 2px
 }
 
 .img-gallery {
     padding-top: 0;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
     align-items: center;
     gap: 20px;
@@ -110,22 +130,39 @@ input {
 .editor-container {
     display: none;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+@media (max-width : 990px){
+    .editor-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .canvas-container {
     background-color: #ebeef346;
     padding: 20px 20px;
+    width: 440px;
 }
 
-.settings-container {
+.edit-settings-container {
     background-color: #ebeef346;
     padding: 10px 20px;
+    width: 440px;
     justify-content: space-evenly;
+}
+
+@media (max-width : 990px){
+    .edit-settings-container {
+        height: 440px;
+    }
 }
 
 .input-meme-text {
     color: black;
-    width: 360px;
+    width: 100%;
     text-align: center;
     font-size: 1rem;
     margin: 0%;
@@ -140,8 +177,8 @@ input {
     border-radius: 15px;
     padding: 10px;
     background-color: #19a59f;
-    grid-template-columns: repeat(auto-fit , minmax(50px,1fr));
-    grid-template-rows: 50px 50px;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
     gap: 10px;
 }
 
@@ -156,7 +193,7 @@ input {
     cursor: pointer;
 }
 
-.setting-btn:hover{
+.setting-btn:hover {
     position: relative;
     top: 4px;
     box-shadow: 0px 0px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
@@ -217,29 +254,71 @@ input {
     height: 60px;
 }
 
-.share-btn-container {
-    justify-content: space-evenly;
-    align-items: center;
+.publish-setting-btn-container {
+    justify-content: space-between;
+    gap: 10px;
 }
 
-.download-btn {
-    background-color: rgb(10, 192, 10);
+.publish-setting-btn-container button, a {
     padding: 7px 20px;
     font-size: 1rem;
     font-weight: 800;
-    text-decoration: none;
     color: white;
-    box-shadow: 1px 6px 0 #632687;
+    text-decoration: none;
     border-radius: 15px;
+    border: none;
+}
+
+.publish-setting-btn-container button::before, a::before {
+    position: relative;
+    padding-right: 10px;
+    right: 5px;
+    top: 4px;
+}
+
+.share-btn {
+    box-shadow: 1px 6px 0 #165c9c;
+    text-shadow: 1px 2px 0 #0f406e;
+    background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
+    margin-left: 10px;
+}
+
+.share-btn::before {
+    content: url(/img/btn-share.png);
+}
+
+.share-btn:hover {
+    box-shadow: 0px 0px 0 #165c9c;
+    position: relative;
+    top: 6px;
+    cursor: pointer;
+}
+
+.save-btn {
+    box-shadow: 1px 5px 0 #015d33;
+    text-shadow: 1px 2px 0 rgba(1, 65, 36, 0.61);
+    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+}
+
+.save-btn::before {
+    content: url(/img/btn-save.png);
+}
+
+.save-btn:hover {
+    box-shadow: 0px 0px 0 #015d33;
+    position: relative;
+    top: 6px;
+    cursor: pointer;
+}
+
+.download-btn {
+    box-shadow: 1px 6px 0 #632687;
+    text-shadow: 1px 2px 0 #531e72;
     background-image: linear-gradient(-38deg, #a990b8 0%, #9d63be 50%, #8f44bb 100%);
 }
 
 .download-btn::before {
     content: url(/img/btn-download.png);
-    position: relative;
-    right: 5px;
-    top: 4px;
-    padding-right: 10px;
 }
 
 .download-btn:hover {
@@ -249,34 +328,71 @@ input {
     cursor: pointer;
 }
 
-.share-btn {
-    background-color: rgb(10, 192, 10);
-    position: relative;
-    top: 4px;
-    padding: 5px 20px;
-    font-size: 1rem;
-    font-weight: 800;
-    color: white;
+/* MEME GALERRY */
+
+.meme-container {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: center;
+    gap: 20px;
+}
+
+.meme-container img {
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.meme-card {
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(240, 255, 255, 0.438);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.btn-crudl {
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 10px;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
     border: none;
-    box-shadow: 1px 6px 0 #165c9c;
-    border-radius: 15px;
+    cursor: pointer;
+}
+
+.btn-crudl-remove {
+    box-shadow: 1px 5px 0 #8c0606;
+    background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
+}
+
+.btn-crudl-remove:hover {
+    position: relative;
+    top: 3px;
+    box-shadow: none;
+    background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
+}
+
+.btn-crudl-edit {
+    box-shadow: 1px 5px 0 #165c9c;
     background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
 
-.share-btn::before {
-    content: url(/img/btn-share.png);
+.btn-crudl-edit:hover {
     position: relative;
-    right: 5px;
-    top: 4px;
-    padding-right: 10px;
+    top: 3px;
+    box-shadow: none;
+    background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }
 
-.share-btn:hover {
-    box-shadow: 0px 0px 0 #165c9c;
+.btn-crudl img {
     position: relative;
-    top: 6px;
-    cursor: pointer;
+    top: 5px;
+    height: 30px;
+    width: 25px;
 }
+
+/* UTILS */
 
 .flex {
     display: flex;

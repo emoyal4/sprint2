@@ -9,24 +9,23 @@
     <title>MEMEGEN</title>
 </head>
 
-<body onload="renderImgs()">
+<body onload="init()">
 
     <div class="body-container flex column">
 
         <header class="container flex ellipse">
             <img class="logo" src="img/LOGO.png">
             <div class="header-btn-container">
-                <button class="btn-gallery" onclick="toggleCanvas()">Gallery</button>
-                <button class="btn-about">About</button>
+                <button class="btn-gallery" onclick="openGallery()">Gallery</button>
+                <button class="btn-editor" onclick="openEditor()">Editor</button>
+                <button class="btn-meme" onclick="openMeme()">Meme</button>
             </div>
         </header>
 
         <main class="container gallery-container">
-
-            <section class="search-area flex">
-                <input class="input-keywords" type="text">
+            <section class="search-area">
+                <input class="input-keywords" type="text" onkeyup="renderImgByStr(this.value)">
                 <div class="keywords-area container ellipse">
-                    <span>Funny</span>
                     <span>Animal</span>
                     <span>Men</span>
                     <span>Women</span>
@@ -40,24 +39,27 @@
             </section>
         </main>
 
-        <main class="container editor-container">
+        <main class="editor-container container">
             <div class="canvas-container">
                 <canvas id="editor-canvas" height="400" width="400"></canvas>
             </div>
 
-            <section class="settings-container flex column">
-                <input class="input-meme-text" type="text" value="Enter your text hare" onkeyup="onSetText(this.value)">
+            <section class="edit-settings-container flex column">
+                <input class="input-meme-text" type="text" value="Enter your text here" onkeyup="onSetText(this.value)">
                 <div class="line-setting-btn-container flex">
-                    <button class="setting-btn btn-switch"  onclick="onSwitchLine()"><img src="img/switch.png"></button>
+                    <button class="setting-btn btn-switch" onclick="onSwitchLine()"><img src="img/switch.png"></button>
                     <button class="setting-btn btn-add" onclick="onAddLine()">+</button>
                     <button class="setting-btn btn-remove" onclick="onRemoveLine()"><img src="img/remove.png"></button>
                 </div>
                 <div class="text-setting-btn-container grid">
                     <button class="setting-btn btn-txt-size-up" onclick="onChangeFontSize(+1)">A+</button>
                     <button class="setting-btn btn-txt-size-down" onclick="onChangeFontSize(-1)">A-</button>
-                    <button class="setting-btn btn-align-left" onclick="onSetTextAlign('right')"><img src="img/btn-align-left.png"></button>
-                    <button class="setting-btn btn-align-center" onclick="onSetTextAlign('center')"><img src="img/btn-align-center.png"></button>
-                    <button class="setting-btn btn-align-right" onclick="onSetTextAlign('left')"><img src="img/btn-align-right.png"></button>
+                    <button class="setting-btn btn-align-left" onclick="onSetTextAlign('right')"><img
+                            src="img/btn-align-left.png"></button>
+                    <button class="setting-btn btn-align-center" onclick="onSetTextAlign('center')"><img
+                            src="img/btn-align-center.png"></button>
+                    <button class="setting-btn btn-align-right" onclick="onSetTextAlign('left')"><img
+                            src="img/btn-align-right.png"></button>
                     <button class="setting-btn btn-txt-up" onclick="onChangeTextPosY(-1)">↑</button>
                     <button class="setting-btn btn-txt-down" onclick="onChangeTextPosY(+1)">↓</button>
                     <button class="setting-btn btn-txt-up" onclick="onChangeTextPosX(-1)">←</button>
@@ -68,22 +70,30 @@
 
                 </div>
 
-                <div class="share-btn-container flex">
-                    <form  method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                        <input name="img" id="imgData" type="hidden" />
-                        <button class="btn share-btn" type="submit">Publish</button>
-                        <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
-                        <div class="share-container"></div>
-                      </form>
-                </div>
+                <form class="publish-setting-btn-container flex" method="POST" enctype="multipart/form-data"
+                    onsubmit="uploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="btn share-btn" type="submit">Share</button>
+                    <button class="btn save-btn" onclick="onSaveMeme(event)">Save</button>
+                    <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+                    <div class="share-container"></div>
+                </form>
 
             </section>
 
         </main>
 
+        <main class="container meme-container">
+            <h1>Save Your Memes Here!</h1>
+        </main>
+
 
     </div>
+
+
     <script src="js/dragAndDrop.service.js"></script>
+    <script src="js/storage.service.js"></script>
+    <script src="js/meme.service.js"></script>
     <script src="js/editor.service.js"></script>
     <script src="js/gallery.service.js"></script>
     <script src="js/controller.js"></script>

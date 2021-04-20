@@ -8,7 +8,7 @@ function createMeme(imgId) {
         selectedLineIdx: 0,
         lines: [
             {
-                txt: 'Enter your text hare',
+                txt: 'Enter your text here',
                 size: 40,
                 align: 'center',
                 color: 'white',
@@ -92,6 +92,8 @@ function ChangeTextPosX(diff){
     var currLine = getCurrLine()
     currLine.pos.x += diff
 }
+
+
 
 
 
