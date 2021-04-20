@@ -8,11 +8,13 @@ function createMeme(imgId) {
         selectedLineIdx: 0,
         lines: [
             {
-                txt: 'Enter your text here',
+                txt: 'Your text here',
                 size: 40,
                 align: 'center',
                 color: 'white',
-                pos: { x: 200, y: 50 }
+                pos: { x: 200, y: 50 },
+                font: 'impact',
+                isDragging: false
             }
         ]
     }
@@ -48,7 +50,9 @@ function addLine() {
         size: 40,
         align: 'center',
         color: 'white',
-        pos: getPos(gMeme.lines.length)
+        pos: getPos(gMeme.lines.length),
+        font: 'impact',
+        isDragging: false
     }
     gMeme.lines.push(newLine)
 }
@@ -68,6 +72,10 @@ function removeLine() {
     gMeme.selectedLineIdx = 0
 }
 
+function setSticker(id) {
+    gMeme.stickerId = id
+}
+
 function getCurrLine() {
     var currLineIdx = gMeme.selectedLineIdx
     return gMeme.lines[currLineIdx]
@@ -83,15 +91,22 @@ function setTextAlign(alignKey) {
     currLine.align = alignKey
 }
 
-function ChangeTextPosY(diff){
+function setFont(font) {
+    var currLine = getCurrLine()
+    currLine.font = font
+}
+
+function ChangeTextPosY(diff) {
     var currLine = getCurrLine()
     currLine.pos.y += diff
 }
 
-function ChangeTextPosX(diff){
+function ChangeTextPosX(diff) {
     var currLine = getCurrLine()
     currLine.pos.x += diff
 }
+
+
 
 
 

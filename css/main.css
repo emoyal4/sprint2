@@ -56,6 +56,12 @@ input {
     color: #00a846;
 }
 
+.active {
+    background-color: white;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    color: #00a846;
+}
+
 .logo {
     height: 20px;
     align-self: center;
@@ -68,10 +74,9 @@ input {
     flex-direction: column;
 }
 
-.search-area{
+.search-area {
     display: flex;
 }
-
 
 .input-keywords {
     background: url(/img/btn-search.png) no-repeat scroll;
@@ -84,11 +89,10 @@ input {
     padding: 3px 20px;
 }
 
-@media (max-width: 800px){
-    .search-area{
+@media (max-width: 800px) {
+    .search-area {
         flex-direction: column;
     }
-
     .input-keywords {
         background-size: 3%;
         background-position-x: 95%;
@@ -134,7 +138,7 @@ input {
     gap: 20px;
 }
 
-@media (max-width : 990px){
+@media (max-width: 990px) {
     .editor-container {
         flex-direction: column;
         align-items: center;
@@ -154,49 +158,23 @@ input {
     justify-content: space-evenly;
 }
 
-@media (max-width : 990px){
+@media (max-width: 990px) {
     .edit-settings-container {
         height: 440px;
     }
 }
 
 .input-meme-text {
-    color: black;
+    color: rgb(51, 51, 51);
     width: 100%;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
     margin: 0%;
 }
 
 .line-setting-btn-container {
     justify-content: center;
     gap: 20px;
-}
-
-.text-setting-btn-container {
-    border-radius: 15px;
-    padding: 10px;
-    background-color: #19a59f;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
-    gap: 10px;
-}
-
-.setting-btn {
-    font-size: 2rem;
-    width: 50px;
-    height: 50px;
-    font-weight: 500;
-    border-radius: 10px;
-    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-    border: none;
-    cursor: pointer;
-}
-
-.setting-btn:hover {
-    position: relative;
-    top: 4px;
-    box-shadow: 0px 0px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
 }
 
 .btn-switch {
@@ -248,55 +226,88 @@ input {
     cursor: pointer;
 }
 
+.text-setting-btn-container {
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #19a59f;
+    grid-template-columns: repeat(6, minmax(50px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 10px;
+    justify-items: center;
+}
+
+.setting-btn {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    font-weight: 500;
+    border-radius: 10px;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border: none;
+    cursor: pointer;
+}
+
+.setting-btn:hover {
+    position: relative;
+    top: 4px;
+    box-shadow: 0px 0px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+}
+
+.font-select {
+    grid-column: 4/7;
+    width: 100%;
+    border-radius: 10px;
+    padding-inline-start: 10%;
+    font-size: 1rem;
+}
+
 .sticker-container {
+    justify-content: space-around;
     border-radius: 45px;
     background-color: #ffffff;
-    height: 60px;
+    height: 70px;
+    padding: 10px;
+}
+
+.sticker-container img{
+    cursor: pointer;
 }
 
 .publish-setting-btn-container {
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 10px;
 }
 
 .publish-setting-btn-container button, a {
-    padding: 7px 20px;
-    font-size: 1rem;
-    font-weight: 800;
-    color: white;
-    text-decoration: none;
     border-radius: 15px;
+    width: 50px;
+    height: 50px;
     border: none;
+}
+
+.publish-setting-btn-container button:hover, a:hover {
+    position: relative;
+    top: 4px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0 #000000;
 }
 
 .publish-setting-btn-container button::before, a::before {
     position: relative;
-    padding-right: 10px;
-    right: 5px;
     top: 4px;
 }
 
 .share-btn {
     box-shadow: 1px 6px 0 #165c9c;
-    text-shadow: 1px 2px 0 #0f406e;
     background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
-    margin-left: 10px;
 }
 
 .share-btn::before {
     content: url(/img/btn-share.png);
 }
 
-.share-btn:hover {
-    box-shadow: 0px 0px 0 #165c9c;
-    position: relative;
-    top: 6px;
-    cursor: pointer;
-}
-
 .save-btn {
     box-shadow: 1px 5px 0 #015d33;
-    text-shadow: 1px 2px 0 rgba(1, 65, 36, 0.61);
     background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
 }
 
@@ -304,16 +315,45 @@ input {
     content: url(/img/btn-save.png);
 }
 
-.save-btn:hover {
+.share-confirm-modal {
+    position: absolute;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    top: 25%;
+    left: 30%;
+    width: 40vw;
+    height: 20vh;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.849);
+    box-shadow: 1px 6px 0 #7a7a7a;
+}
+
+.share-confirm-modal a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 0 1px 1px black;
+    letter-spacing: 1px;
+    box-shadow: 1px 5px 0 #015d33;
+    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+}
+
+.share-confirm-modal a:hover {
     box-shadow: 0px 0px 0 #015d33;
-    position: relative;
-    top: 6px;
-    cursor: pointer;
 }
 
 .download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 1px 6px 0 #632687;
-    text-shadow: 1px 2px 0 #531e72;
     background-image: linear-gradient(-38deg, #a990b8 0%, #9d63be 50%, #8f44bb 100%);
 }
 
@@ -321,10 +361,22 @@ input {
     content: url(/img/btn-download.png);
 }
 
-.download-btn:hover {
-    box-shadow: 0px 0px 0 #632687;
-    position: relative;
-    top: 2px;
+.upload-btn {
+    box-shadow: 1px 6px 0 #906116;
+    background-image: linear-gradient(-38deg, #dca566 0%, #ce8c40 50%, #bb780c 100%);
+    flex-grow: 1;
+}
+
+.upload-btn::before {
+    content: url(/img/btn-upload.png);
+}
+
+.upload-btn input {
+    position: absolute;
+    transform: translateX(-62%) translateY(-25%);
+    height: 40px;
+    width: 191px;
+    opacity: 0%;
     cursor: pointer;
 }
 

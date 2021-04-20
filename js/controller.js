@@ -2,11 +2,17 @@
 
 var gCanvas
 var gCtx
+var gStartPos
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+
 
 function init() {
+    gCanvas = document.querySelector('#editor-canvas')
+    gCtx = gCanvas.getContext('2d')
     renderImgs()
     renderMemes()
     renderKeywords()
+    addListeners()
 }
 
 function openCanvas(imgId) {
@@ -34,7 +40,8 @@ function renderCanvas(editMeme) {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         meme.lines.forEach(function (line) {
             drawText(line, line.pos.x, line.pos.y)
-            // drawRect()
+            drawRect()
+            drowSticker()
         });
     }
 }
@@ -62,6 +69,11 @@ function onRemoveLine() {
     focusInput()
 }
 
+function onDrowSticker(stickerId){
+    setSticker(stickerId)
+    renderCanvas()
+}
+
 function renderInputText() {
     var meme = getMeme()
     document.querySelector('.input-meme-text').value = meme.lines[gMeme.selectedLineIdx].txt
@@ -71,7 +83,7 @@ function drawText(line, x, y) {
     gCtx.lineWidth = 3;
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = line.color
-    gCtx.font = `${line.size}px Impact`
+    gCtx.font = `${line.size}px ${line.font}`
     gCtx.textAlign = line.align
     gCtx.fillText(line.txt, x, y)
     gCtx.strokeText(line.txt, x, y)
@@ -79,9 +91,16 @@ function drawText(line, x, y) {
 
 function drawRect() {
     var currLine = getCurrLine()
-    var strLength = gCtx.measureText(currLine.txt)
     gCtx.strokeStyle = '#363636'
-    gCtx.strokeRect(currLine.pos.x - (strLength.width / 2), currLine.pos.y - currLine.size, strLength.width, currLine.size)
+    gCtx.strokeRect( 5 , currLine.pos.y - currLine.size, gCanvas.width-10, currLine.size+10)
+}
+
+function drowSticker(){
+    var img = new Image()
+    img.src = `img/sticker-${gMeme.stickerId}.png`
+    img.onload = () => {
+        gCtx.drawImage(img, 100, 100, 100, 100)
+    }
 }
 
 function openGallery() {
@@ -114,6 +133,11 @@ function onChangeFontSize(diff) {
 
 function onSetTextAlign(alignKey) {
     setTextAlign(alignKey)
+    renderCanvas()
+}
+
+function onSetFont(font){
+    setFont(font)
     renderCanvas()
 }
 
@@ -206,4 +230,97 @@ function renderKeywords(){
 function onUpdateKeyword(keyword){
     updateKeyword(keyword)
     renderKeywords()
+}
+
+function addActive(elBtn){
+    var elBtns = document.querySelectorAll('.header-btn')
+    elBtns.forEach(function(elBtn){
+        elBtn.classList.remove('active')
+    })
+   elBtn.classList.add('active')
+}
+
+function onUploadImg(img){
+    alert('This function is not available now')
+}
+
+
+function closeModal(){
+    document.querySelector('.share-container').hidden = true
+}
+
+
+
+
+
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+}
+
+function addMouseListeners() {
+    gCanvas.addEventListener('mousemove', onMove)
+    gCanvas.addEventListener('mousedown', onDown)
+    gCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gCanvas.addEventListener('touchmove', onMove)
+    gCanvas.addEventListener('touchstart', onDown)
+    gCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    var currLine = getCurrLine()
+    if (!isLineClicked(pos)) return
+    currLine.isDragging = true
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+
+}
+
+function onMove(ev) {
+    var currLine = getCurrLine()
+    if (currLine.isDragging) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+
+        currLine.pos.x += dx
+        currLine.pos.y += dy
+
+        gStartPos = pos
+        renderCanvas()
+    }
+}
+
+function onUp() {
+    var currLine = getCurrLine()
+    currLine.isDragging = false
+    document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
+}
+
+function isLineClicked(clickedPos) {
+    var currLine = getCurrLine()
+    const { pos } = currLine
+    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    return distance <= currLine.size
 }

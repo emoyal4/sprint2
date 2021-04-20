@@ -16,9 +16,9 @@
         <header class="container flex ellipse">
             <img class="logo" src="img/LOGO.png">
             <div class="header-btn-container">
-                <button class="btn-gallery" onclick="openGallery()">Gallery</button>
-                <button class="btn-editor" onclick="openEditor()">Editor</button>
-                <button class="btn-meme" onclick="openMeme()">Meme</button>
+                <button class="header-btn btn-gallery" onclick="openGallery(), addActive(this)">Gallery</button>
+                <button class="header-btn btn-editor" onclick="openEditor(), addActive(this)">Editor</button>
+                <button class="header-btn btn-meme" onclick="openMeme(), addActive(this)">Meme</button>
             </div>
         </header>
 
@@ -45,7 +45,7 @@
             </div>
 
             <section class="edit-settings-container flex column">
-                <input class="input-meme-text" type="text" value="Enter your text here" onkeyup="onSetText(this.value)">
+                <input class="input-meme-text" type="text" value="Your text here" onkeyup="onSetText(this.value)">
                 <div class="line-setting-btn-container flex">
                     <button class="setting-btn btn-switch" onclick="onSwitchLine()"><img src="img/switch.png"></button>
                     <button class="setting-btn btn-add" onclick="onAddLine()">+</button>
@@ -54,28 +54,42 @@
                 <div class="text-setting-btn-container grid">
                     <button class="setting-btn btn-txt-size-up" onclick="onChangeFontSize(+1)">A+</button>
                     <button class="setting-btn btn-txt-size-down" onclick="onChangeFontSize(-1)">A-</button>
+                    <button class="setting-btn btn-txt-up" onclick="onChangeTextPosY(-1)">↑</button>
+                    <button class="setting-btn btn-txt-down" onclick="onChangeTextPosY(+1)">↓</button>
+                    <button class="setting-btn btn-txt-up" onclick="onChangeTextPosX(-1)">←</button>
+                    <button class="setting-btn btn-txt-down" onclick="onChangeTextPosX(+1)">→</button>
                     <button class="setting-btn btn-align-left" onclick="onSetTextAlign('right')"><img
                             src="img/btn-align-left.png"></button>
                     <button class="setting-btn btn-align-center" onclick="onSetTextAlign('center')"><img
                             src="img/btn-align-center.png"></button>
                     <button class="setting-btn btn-align-right" onclick="onSetTextAlign('left')"><img
                             src="img/btn-align-right.png"></button>
-                    <button class="setting-btn btn-txt-up" onclick="onChangeTextPosY(-1)">↑</button>
-                    <button class="setting-btn btn-txt-down" onclick="onChangeTextPosY(+1)">↓</button>
-                    <button class="setting-btn btn-txt-up" onclick="onChangeTextPosX(-1)">←</button>
-                    <button class="setting-btn btn-txt-down" onclick="onChangeTextPosX(+1)">→</button>
+                    <select class="font-select" name="font" onchange="onSetFont(this.value)">
+                        <option value="impact">Impact</option>
+                        <option value="ariel">Ariel</option>
+                        <option value="david">David</option>
+                    </select>
                 </div>
 
-                <div class="sticker-container">
-
+                <div class="sticker-container flex">
+                    <img src="img/sticker-1.png" onclick="onDrowSticker(1)">
+                    <img src="img/sticker-2.png" onclick="onDrowSticker(2)">
+                    <img src="img/sticker-3.png" onclick="onDrowSticker(3)">
+                    <img src="img/sticker-4.png" onclick="onDrowSticker(4)">
+                    <img src="img/sticker-5.png" onclick="onDrowSticker(5)">
+                    <img src="img/sticker-6.png" onclick="onDrowSticker(6)">
+                   
                 </div>
 
                 <form class="publish-setting-btn-container flex" method="POST" enctype="multipart/form-data"
                     onsubmit="uploadImg(this, event)">
                     <input name="img" id="imgData" type="hidden" />
-                    <button class="btn share-btn" type="submit">Share</button>
-                    <button class="btn save-btn" onclick="onSaveMeme(event)">Save</button>
-                    <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+                    <button class="btn share-btn" type="submit"></button>
+                    <button class="btn save-btn" onclick="onSaveMeme(event)"></button>
+                    <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg"></a>
+                    <button class="btn upload-btn" type="submit">
+                        <input class="upload-input" type="file" oninput="onUploadImg(this.value)">
+                    </button>
                     <div class="share-container"></div>
                 </form>
 
@@ -91,7 +105,8 @@
     </div>
 
 
-    <script src="js/dragAndDrop.service.js"></script>
+
+    <script src="js/upload.service.js"></script>
     <script src="js/storage.service.js"></script>
     <script src="js/meme.service.js"></script>
     <script src="js/editor.service.js"></script>
