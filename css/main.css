@@ -412,8 +412,8 @@ input {
 .share-confirm-modal {
     position: absolute;
     top: 30vh;
-    left: 30vw;
-    width: 40vw;
+    left: 20vw;
+    width: 60vw;
     height: 20vh;
     flex-direction: column;
     justify-content: space-evenly;
