@@ -5,6 +5,7 @@
 /* TIPOGRAPHY */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;700&display=swap');
+
 /* BASE */
 
 body {
@@ -229,7 +230,6 @@ input {
 .canvas-container {
     padding: 20px 20px;
     width: 400px;
-    min-width: 40vw;
 }
 
 .edit-settings-container {
