@@ -244,6 +244,11 @@ input {
         flex-direction: column;
         align-items: center;
     }
+    
+    .canvas-container {
+        width: 400px;
+    }
+
     .edit-settings-container {
         width: 60vw;
     }
