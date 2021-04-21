@@ -2,10 +2,20 @@
 
 var gMeme
 
+function getCurrLine() {
+    var currLineIdx = gMeme.selectedLineIdx
+    return gMeme.lines[currLineIdx]
+}
+
+function getCurrSticker() {
+    return gMeme.sticker
+}
+
 function createMeme(imgId) {
     gMeme = {
         selectedImgId: imgId,
         selectedLineIdx: 0,
+        isPrint: false,
         lines: [
             {
                 txt: 'Your text here',
@@ -16,7 +26,13 @@ function createMeme(imgId) {
                 font: 'impact',
                 isDragging: false
             }
-        ]
+        ],
+        sticker: {
+            id: null,
+            size: 100,
+            pos: { x: 100, y: 100 },
+            isDragging: false
+        }
     }
     return gMeme
 }
@@ -73,12 +89,8 @@ function removeLine() {
 }
 
 function setSticker(id) {
-    gMeme.stickerId = id
-}
-
-function getCurrLine() {
-    var currLineIdx = gMeme.selectedLineIdx
-    return gMeme.lines[currLineIdx]
+    gMeme.sticker.id = id
+    gMeme.sticker.pos = { x: 100, y: 100 }
 }
 
 function changeFontSize(diff) {

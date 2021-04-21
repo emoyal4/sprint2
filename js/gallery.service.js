@@ -28,14 +28,11 @@ var gImgs = [
     { id: 16, url: 'img/16.jpg', keywords: ['movie'] },
     { id: 17, url: 'img/17.jpg', keywords: ['politic'] },
     { id: 18, url: 'img/18.jpg', keywords: ['movie'] }
-
 ]
 
-
 function getImgStrHtml(key) {
-    var imgs
-    if (!key) imgs = gImgs
-    else {
+    var imgs = gImgs
+    if (key){
         imgs = gImgs.filter(function (img) {
             return img.keywords.some(function (keyword) {
                 return keyword.includes(key)
@@ -52,8 +49,8 @@ function getKeywords() {
     return gKeywords
 }
 
-function updateKeyword(str){
-    var currKeyword = gKeywords.find(function(keyword){
+function updateKeyword(str) {
+    var currKeyword = gKeywords.find(function (keyword) {
         return keyword.key === str
     })
     currKeyword.clicks++

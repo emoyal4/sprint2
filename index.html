@@ -16,34 +16,24 @@
         <header class="container flex ellipse">
             <img class="logo" src="img/LOGO.png">
             <div class="header-btn-container">
-                <button class="header-btn btn-gallery" onclick="openGallery(), addActive(this)">Gallery</button>
-                <button class="header-btn btn-editor" onclick="openEditor(), addActive(this)">Editor</button>
-                <button class="header-btn btn-meme" onclick="openMeme(), addActive(this)">Meme</button>
+                <button class="header-btn btn-gallery active" onclick="openPage('gallery')">Gallery</button>
+                <button class="header-btn btn-editor" onclick="openPage('editor')">Editor</button>
+                <button class="header-btn btn-meme" onclick="openPage('meme')">Meme</button>
             </div>
         </header>
 
         <main class="container gallery-container">
             <section class="search-area">
                 <input class="input-keywords" type="text" onkeyup="renderImgByStr(this.value)">
-                <div class="keywords-area container ellipse">
-                    <span>Animal</span>
-                    <span>Men</span>
-                    <span>Women</span>
-                    <span>Comic</span>
-                    <span>Smile</span>
-                </div>
+                <div class="keywords-area container ellipse"></div>
             </section>
-
-            <section class="img-gallery container grid">
-
-            </section>
+            <section class="img-gallery container grid"></section>
         </main>
 
         <main class="editor-container container">
             <div class="canvas-container">
                 <canvas id="editor-canvas" height="400" width="400"></canvas>
             </div>
-
             <section class="edit-settings-container flex column">
                 <input class="input-meme-text" type="text" value="Your text here" onkeyup="onSetText(this.value)">
                 <div class="line-setting-btn-container flex">
@@ -70,41 +60,34 @@
                         <option value="david">David</option>
                     </select>
                 </div>
-
                 <div class="sticker-container flex">
                     <img src="img/sticker-1.png" onclick="onDrowSticker(1)">
                     <img src="img/sticker-2.png" onclick="onDrowSticker(2)">
                     <img src="img/sticker-3.png" onclick="onDrowSticker(3)">
                     <img src="img/sticker-4.png" onclick="onDrowSticker(4)">
                     <img src="img/sticker-5.png" onclick="onDrowSticker(5)">
-                    <img src="img/sticker-6.png" onclick="onDrowSticker(6)">
-                   
+                    <button class="setting-btn btn-remove" onclick="onDrowSticker(7)"> <img
+                            src="img/remove.png"></button>
                 </div>
-
                 <form class="publish-setting-btn-container flex" method="POST" enctype="multipart/form-data"
                     onsubmit="uploadImg(this, event)">
                     <input name="img" id="imgData" type="hidden" />
-                    <button class="btn share-btn" type="submit"></button>
-                    <button class="btn save-btn" onclick="onSaveMeme(event)"></button>
-                    <a href="#" class="btn download-btn" onclick="downloadImg(this)" download="my-img.jpg"></a>
-                    <button class="btn upload-btn" type="submit">
+                    <button class="setting-btn save-btn" onclick="onSaveMeme(event)"></button>
+                    <button class="setting-btn share-btn publish-btn inactive-btn" type="submit"></button>
+                    <a href="#" class="setting-btn download-btn publish-btn inactive-btn" onclick="downloadImg(this)" download="my-img.jpg"></a>
+                    <button class="setting-btn upload-btn" type="submit">
                         <input class="upload-input" type="file" oninput="onUploadImg(this.value)">
                     </button>
                     <div class="share-container"></div>
                 </form>
-
             </section>
-
         </main>
 
         <main class="container meme-container">
             <h1>Save Your Memes Here!</h1>
         </main>
 
-
     </div>
-
-
 
     <script src="js/upload.service.js"></script>
     <script src="js/storage.service.js"></script>

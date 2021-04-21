@@ -4,6 +4,13 @@ var gSavedMemes = []
 
 const STORAGE_KEY = 'savedMemes'
 
+function loadMemes() {
+    var memes = getMemesFromStorage()
+    if (!memes) return
+    gSavedMemes = memes
+    return gSavedMemes
+}
+
 function getMemesFromStorage() {
     var memes = loadFromStorage(STORAGE_KEY)
     return memes
@@ -18,16 +25,6 @@ function saveMeme(imgContent) {
     meme.imgContent = imgContent
     gSavedMemes.push(meme)
     saveMemesToStorage(gSavedMemes)
-}
-
-function loadMemes() {
-    var memes = getMemesFromStorage()
-    if (!memes) {
-        if (!gSavedMemes) return
-        else return gSavedMemes
-    }
-    gSavedMemes = memes
-    return gSavedMemes
 }
 
 function removeMeme(imgContent) {

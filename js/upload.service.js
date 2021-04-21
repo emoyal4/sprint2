@@ -1,18 +1,22 @@
+'use strict'
 
-// on submit call to this function
 function uploadImg(elForm, ev) {
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
 
-    // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `
             <div class="share-confirm-modal flex"> 
                 <h3> Are you sure you wish to share this meme? </h3>
-                <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'), closeModal() ; return false;">
-                Confirm
-                </a>
+                <div class="modal-btn-area flex"> 
+                    <a class="btn confirm-modal-btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'), closeModal() ; return false;">
+                    Confirm
+                    </a>
+                    <a class="close-modal-btn" onclick="closeModal()">
+                    Close
+                    </a>
+                </div>
             </div>`
     }
     let inputVal = elForm.querySelector('input').value
@@ -21,7 +25,6 @@ function uploadImg(elForm, ev) {
 
 function doUploadImg(elForm, onSuccess) {
     var formData = new FormData(elForm);
-    console.log('doUploadImg -> formData', formData)
     fetch('//ca-upload.com/here/upload.php', {
         method: 'POST',
         body: formData
