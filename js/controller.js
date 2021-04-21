@@ -56,6 +56,10 @@ function renderKeywords() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderCanvas()
+    })
 }
 
 function addMouseListeners() {
@@ -191,6 +195,7 @@ function openCanvas(imgId) {
     createMeme(imgId)
     openPage('editor')
     renderCanvas()
+    resizeCanvas()
     selectInput()
     focusInput()
 }
@@ -202,7 +207,7 @@ function renderCanvas(userMeme) {
     img.src = `img/${meme.selectedImgId}.jpg`
     img.onload = function () {
         clearCanvas()
-        renderInputText()
+        setInputText()
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         meme.lines.forEach(function (line) {
             drawText(line, line.pos.x, line.pos.y)
@@ -219,7 +224,7 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
 }
 
-function renderInputText() {
+function setInputText() {
     var meme = getMeme()
     document.querySelector('.input-meme-text').value = meme.lines[meme.selectedLineIdx].txt
 }
@@ -252,6 +257,19 @@ function drowSticker() {
     }
 }
 
+function setPublishBtns() {
+    var elPublishBtns = document.querySelectorAll('.publish-btn')
+    if (isPublishActive) {
+        elPublishBtns.forEach(function (elPublishBtn) {
+            elPublishBtn.classList.remove('inactive-btn')
+        })
+    } else {
+        elPublishBtns.forEach(function (elPublishBtn) {
+            elPublishBtn.classList.add('inactive-btn')
+        })
+    }
+}
+
 function onSetText(txt) {
     setText(txt)
     renderCanvas()
@@ -261,6 +279,16 @@ function onAddLine() {
     addLine()
     renderCanvas()
     focusInput()
+}
+
+function focusInput() {
+    var elInput = document.querySelector('.input-meme-text')
+    elInput.focus()
+}
+
+function selectInput() {
+    var elInput = document.querySelector('.input-meme-text')
+    elInput.select()
 }
 
 function onSwitchLine() {
@@ -305,12 +333,6 @@ function onChangeTextPosX(diff) {
     renderCanvas()
 }
 
-function removeRect() {
-    var meme = getMeme()
-    meme.isPrint = true
-    renderCanvas(meme)
-}
-
 function onSaveMeme(ev) {
     ev.preventDefault()
     removeRect()
@@ -322,31 +344,13 @@ function onSaveMeme(ev) {
     }, 100)
 }
 
-function setPublishBtns() {
-    var elPublishBtns = document.querySelectorAll('.publish-btn')
-    if (isPublishActive) {
-        elPublishBtns.forEach(function (elPublishBtn) {
-            elPublishBtn.classList.remove('inactive-btn')
-        })
-    } else {
-        elPublishBtns.forEach(function (elPublishBtn) {
-            elPublishBtn.classList.add('inactive-btn')
-        })
-    }
+function removeRect() {
+    var meme = getMeme()
+    meme.isPrint = true
+    renderCanvas(meme)
 }
 
-
-function focusInput() {
-    var elInput = document.querySelector('.input-meme-text')
-    elInput.focus()
-}
-
-function selectInput() {
-    var elInput = document.querySelector('.input-meme-text')
-    elInput.select()
-}
-
-function downloadImg(elLink) {
+function onDownloadImg(elLink) {
     var imgContent = gCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
 }
@@ -373,3 +377,8 @@ function closeModal() {
     document.querySelector('.share-container').hidden = true
 }
 
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gCanvas.style.width = '100%'
+    gCanvas.style.height = '100%'
+}

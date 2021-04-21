@@ -3,7 +3,6 @@
 function uploadImg(elForm, ev) {
     ev.preventDefault();
     document.getElementById('imgData').value = gCanvas.toDataURL("image/jpeg");
-
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `

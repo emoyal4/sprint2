@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico"/>
     <link rel="stylesheet" href="css/main.css">
-    <title>MEMEGEN</title>
+    <title>MEMEGEN - by eliMoyal()</title>
 </head>
 
 <body onload="init()">
@@ -15,6 +16,7 @@
 
         <header class="container flex ellipse">
             <img class="logo" src="img/LOGO.png">
+            <img class="sub-logo" src="img/sublogo.png">
             <div class="header-btn-container">
                 <button class="header-btn btn-gallery active" onclick="openPage('gallery')">Gallery</button>
                 <button class="header-btn btn-editor" onclick="openPage('editor')">Editor</button>
@@ -22,15 +24,15 @@
             </div>
         </header>
 
-        <main class="container gallery-container">
+        <main class="gallery-container container">
             <section class="search-area">
-                <input class="input-keywords" type="text" onkeyup="renderImgByStr(this.value)">
+                <input class="input-keywords container" type="text" onkeyup="renderImgByStr(this.value)">
                 <div class="keywords-area container ellipse"></div>
             </section>
             <section class="img-gallery container grid"></section>
         </main>
 
-        <main class="editor-container container">
+        <main class="editor-container">
             <div class="canvas-container">
                 <canvas id="editor-canvas" height="400" width="400"></canvas>
             </div>
@@ -44,10 +46,10 @@
                 <div class="text-setting-btn-container grid">
                     <button class="setting-btn btn-txt-size-up" onclick="onChangeFontSize(+1)">A+</button>
                     <button class="setting-btn btn-txt-size-down" onclick="onChangeFontSize(-1)">A-</button>
+                    <button class="setting-btn btn-txt-left" onclick="onChangeTextPosX(-1)">←</button>
                     <button class="setting-btn btn-txt-up" onclick="onChangeTextPosY(-1)">↑</button>
                     <button class="setting-btn btn-txt-down" onclick="onChangeTextPosY(+1)">↓</button>
-                    <button class="setting-btn btn-txt-up" onclick="onChangeTextPosX(-1)">←</button>
-                    <button class="setting-btn btn-txt-down" onclick="onChangeTextPosX(+1)">→</button>
+                    <button class="setting-btn btn-txt-right" onclick="onChangeTextPosX(+1)">→</button>
                     <button class="setting-btn btn-align-left" onclick="onSetTextAlign('right')"><img
                             src="img/btn-align-left.png"></button>
                     <button class="setting-btn btn-align-center" onclick="onSetTextAlign('center')"><img
@@ -74,7 +76,7 @@
                     <input name="img" id="imgData" type="hidden" />
                     <button class="setting-btn save-btn" onclick="onSaveMeme(event)"></button>
                     <button class="setting-btn share-btn publish-btn inactive-btn" type="submit"></button>
-                    <a href="#" class="setting-btn download-btn publish-btn inactive-btn" onclick="downloadImg(this)" download="my-img.jpg"></a>
+                    <a href="#" class="setting-btn download-btn publish-btn inactive-btn" onclick="onDownloadImg(this)" download="my-img.jpg"></a>
                     <button class="setting-btn upload-btn" type="submit">
                         <input class="upload-input" type="file" oninput="onUploadImg(this.value)">
                     </button>
@@ -83,7 +85,7 @@
             </section>
         </main>
 
-        <main class="container meme-container">
+        <main class="meme-container container">
             <h1>Save Your Memes Here!</h1>
         </main>
 

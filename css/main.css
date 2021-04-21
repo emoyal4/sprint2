@@ -5,7 +5,6 @@
 /* TIPOGRAPHY */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;700&display=swap');
-
 /* BASE */
 
 body {
@@ -41,8 +40,22 @@ input {
 /* LAYOUT */
 
 .container {
-    margin: 0.5rem;
-    padding: 1rem 2.5rem;
+    margin: 0.5rem 0rem;
+    padding: 1rem 1rem;
+}
+
+@media (min-width: 370px) {
+    .container {
+        margin: 0.5rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (min-width: 570px) {
+    .container {
+        margin: 0.5rem;
+        padding: 1rem 2.5rem;
+    }
 }
 
 .setting-btn {
@@ -75,11 +88,24 @@ input {
     color: white;
     font-weight: 700;
     letter-spacing: 1px;
-    font-size: 1rem;
-    margin-inline-start: 20px;
+    font-size: 0.5rem;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 5px;
     cursor: pointer;
+}
+
+@media (min-width: 370px) {
+    .header-btn-container>* {
+        font-size: 0.7rem;
+        padding: 10px 10px;
+    }
+}
+
+@media (min-width: 570px) {
+    .header-btn-container>* {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
 }
 
 .header-btn-container>*:hover {
@@ -93,6 +119,20 @@ input {
     min-width: 100px;
 }
 
+.sub-logo {
+    position: absolute;
+    display: none;
+    left: 155px;
+    top: 37px;
+    height: 25px;
+}
+
+@media (min-width: 590px) {
+    .sub-logo{
+        display: inline;
+    }
+}
+
 /* Image gallery */
 
 .gallery-container {
@@ -102,26 +142,27 @@ input {
 
 .search-area {
     display: flex;
+    flex-direction: column;
 }
 
 .input-keywords {
     background: url(/img/btn-search.png) no-repeat scroll;
-    background-size: 6%;
-    background-position-x: 90%;
+    background-size: 4%;
+    background-position-x: 95%;
     background-position-y: 50%;
+    padding: 3px 20px;
     background-color: #22252c;
     color: rgb(221, 221, 221);
     font-size: 1.5rem;
-    padding: 3px 20px;
 }
 
-@media (max-width: 800px) {
+@media (min-width: 800px) {
     .search-area {
-        flex-direction: column;
+        flex-direction: row;
     }
     .input-keywords {
-        background-size: 4%;
-        background-position-x: 95%;
+        background-size: 6%;
+        background-position-x: 90%;
         background-position-y: 50%;
         padding: 3px 20px;
     }
@@ -152,50 +193,83 @@ input {
     width: 100%;
     border-radius: 10px;
     cursor: pointer;
+    box-shadow: 0px 2px 3px 1px #0000004f
 }
 
 /* Canvas editor */
 
 .editor-container {
+    padding: 10px 30px;
     display: none;
-    justify-content: space-evenly;
+    width: 100vw;
+    justify-content: center;
     background-color: transparent;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
 }
 
-@media (max-width: 990px) {
-    .editor-container {
-        flex-direction: column;
-        align-items: center;
-    }
+.editor-container::after {
+    content: '';
+    background-image: url(../img/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .editor-container>* {
     background-color: #ebeef315;
     border-radius: 20px;
+}
+
+.canvas-container {
     padding: 20px 20px;
-    width: 440px;
+    min-width: 40vw;
+}
+
+.edit-settings-container {
+    padding: 20px 20px;
+    width: 40vw;
+    gap: 10px;
     justify-content: space-evenly;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 1020px) {
+    .editor-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .canvas-container {
+        width: 60vw;
+    }
     .edit-settings-container {
-        height: 440px;
+        width: 60vw;
+    }
+}
+
+@media (max-width: 695px) {
+    .canvas-container {
+        width: 90vw;
+    }
+    .edit-settings-container {
+        width: 90vw;
     }
 }
 
 .input-meme-text {
     color: rgb(51, 51, 51);
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.3em;
     margin: 0%;
 }
 
 .line-setting-btn-container {
     justify-content: center;
-    gap: 20px;
-    padding-bottom: 4px;
+    gap: 10px;
 }
 
 .btn-switch {
@@ -222,7 +296,7 @@ input {
     padding: 10px;
     background-color: #19a59e;
     grid-template-columns: repeat(6, minmax(50px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(50px, 1fr));
+    grid-template-rows: repeat(2, minmax(50px, 1fr));
     gap: 10px;
     justify-items: center;
 }
@@ -233,6 +307,24 @@ input {
     border-radius: 10px;
     padding-inline-start: 10%;
     font-size: 1rem;
+}
+
+@media (max-width: 465px) {
+    .btn-txt-up {
+        display: none;
+    }
+    .btn-txt-down {
+        display: none;
+    }
+    .btn-txt-left {
+        display: none;
+    }
+    .btn-txt-right {
+        display: none;
+    }
+    .font-select {
+        grid-column: 1/6;
+    }
 }
 
 .sticker-container {
@@ -248,7 +340,7 @@ input {
     transition: 0.3s;
 }
 
-.sticker-container img:hover {
+.sticker-container img:not(:last-child):hover {
     transform: rotate(5deg);
 }
 
@@ -289,13 +381,15 @@ input {
 
 .upload-btn {
     position: relative;
-    box-shadow: 1px 6px 0 #906116;
+    box-shadow: 1px 5px 0 #906116;
     background-image: linear-gradient(-38deg, #dca566 0%, #ce8c40 50%, #bb780c 100%);
     flex-grow: 1;
 }
 
 .upload-btn::before {
     content: url(../img/btn-upload.png);
+    position: relative;
+    top: 5px;
 }
 
 .upload-btn input {
@@ -372,6 +466,12 @@ input {
     gap: 20px;
 }
 
+.meme-container h1 {
+    color: white;
+    text-align: center;
+    grid-column: 1/-1;
+}
+
 .meme-container img {
     width: 100%;
     border-radius: 10px;
@@ -384,12 +484,14 @@ input {
     background-color: #ebeef315;
     padding: 10px;
     border-radius: 10px;
+    box-shadow: 0px 2px 3px 1px #0000004f
 }
 
 .crudl-btn-container {
     width: 100%;
     justify-content: space-evenly;
     align-items: center;
+    margin-top: 5px;
 }
 
 .btn-crudl {
@@ -448,13 +550,13 @@ input {
     color: #00a846;
 }
 
-.inactive-btn{
+.inactive-btn {
     box-shadow: 1px 5px 0 #2c2c2c;
     background-image: linear-gradient(-38deg, #e9e9e9 0%, #b3b3b3 100%);
     pointer-events: none;
 }
 
-.inactive-btn:hover{
+.inactive-btn:hover {
     position: relative;
     top: 0px;
     box-shadow: 0px 0px 0px rgba(92, 92, 92, 0.55), inset 0px 0px 0 rgba(255, 255, 255, 0.58);

@@ -45,28 +45,14 @@ function setText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
-function getPos(idx) {
-    switch (idx) {
-        case 0:
-            return { x: 200, y: 50 }
-        case 1:
-            return { x: 200, y: 350 }
-        case 2:
-            return { x: 200, y: 200 }
-        default:
-            return { x: 200, y: 200 }
-    }
-}
-
 function addLine() {
     gMeme.selectedLineIdx++
-
     var newLine = {
-        txt: 'Enter your text hare',
+        txt: 'Your text here',
         size: 40,
         align: 'center',
         color: 'white',
-        pos: getPos(gMeme.lines.length),
+        pos: getNewLinePos(gMeme.lines.length),
         font: 'impact',
         isDragging: false
     }
@@ -86,6 +72,19 @@ function removeLine() {
     if (gMeme.lines.length === 1) return
     gMeme.lines.splice(currLineIdx, 1)
     gMeme.selectedLineIdx = 0
+}
+
+function getNewLinePos(idx) {
+    switch (idx) {
+        case 0:
+            return { x: 200, y: 50 }
+        case 1:
+            return { x: 200, y: 350 }
+        case 2:
+            return { x: 200, y: 200 }
+        default:
+            return { x: 200, y: 200 }
+    }
 }
 
 function setSticker(id) {
