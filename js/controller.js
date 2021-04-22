@@ -336,6 +336,7 @@ function onChangeTextPosX(diff) {
 function onSaveMeme(ev) {
     ev.preventDefault()
     removeRect()
+    openSaveModal()
     isPublishActive = true
     setTimeout(() => {
         var imgContent = gCanvas.toDataURL('image/jpeg')
@@ -378,7 +379,13 @@ function closeModal() {
 }
 
 function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
     gCanvas.style.width = '100%'
     gCanvas.style.height = '100%'
+}
+
+function openSaveModal(){
+    document.querySelector('.save-modal').style.top = '0vh'
+    setTimeout(() => {
+        document.querySelector('.save-modal').style.top = '-7vh'
+    }, 2000);
 }

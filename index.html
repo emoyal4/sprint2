@@ -14,9 +14,8 @@
 
     <div class="body-container flex column">
 
-        <header class="container flex ellipse">
+        <header class="flex">
             <img class="logo" src="img/LOGO.png">
-            <img class="sub-logo" src="img/sublogo.png">
             <div class="header-btn-container">
                 <button class="header-btn btn-gallery active" onclick="openPage('gallery')">Gallery</button>
                 <button class="header-btn btn-editor" onclick="openPage('editor')">Editor</button>
@@ -27,7 +26,7 @@
         <main class="gallery-container container">
             <section class="search-area">
                 <input class="input-keywords container" type="text" onkeyup="renderImgByStr(this.value)">
-                <div class="keywords-area container ellipse"></div>
+                <div class="keywords-area container"></div>
             </section>
             <section class="img-gallery container grid"></section>
         </main>
@@ -88,6 +87,10 @@
         <main class="meme-container container">
             <h1>Save Your Memes Here!</h1>
         </main>
+
+        <div class="save-modal">
+            <h3>Saved</h3>
+        </div>
 
     </div>
 
