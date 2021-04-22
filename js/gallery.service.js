@@ -32,17 +32,27 @@ var gImgs = [
 
 function getImgStrHtml(key) {
     var imgs = gImgs
-    if (key){
-        imgs = gImgs.filter(function (img) {
+    if (key) {
+        imgs = gImgs.filter(img => {
             return img.keywords.some(function (keyword) {
                 return keyword.includes(key)
             })
         })
     }
-    var strHTML = imgs.map(function (img) {
+    var strHTML = imgs.map(img => {
         return `<img onclick="openCanvas(${img.id})" src="${img.url}"></img>`
     })
     return strHTML.join('')
+}
+
+function addUserImg(url) {
+    const img = {
+        id: gImgs.length+1,
+        url: url.currentSrc,
+        keywords: [],
+    }
+    gImgs.push(img)
+    return img
 }
 
 function getKeywords() {
@@ -50,10 +60,15 @@ function getKeywords() {
 }
 
 function updateKeyword(str) {
-    var currKeyword = gKeywords.find(function (keyword) {
+    var currKeyword = gKeywords.find(keyword => {
         return keyword.key === str
     })
     currKeyword.clicks++
+}
+
+
+function getImgById(imgId) {
+    return gImgs.find(img => img.id === imgId)
 }
 
 

@@ -41,6 +41,10 @@ function getMeme() {
     return gMeme
 }
 
+function setSavedMeme(meme) {
+    gMeme = meme
+}
+
 function setText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }

@@ -1,9 +1,10 @@
 'use strict'
 
-var gCanvas
-var gCtx
-var gStartPos
-var isPublishActive = false
+let gCanvas
+let gCtx
+let gStartPos
+let isPublishActive = false
+
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function init() {
@@ -23,6 +24,7 @@ function renderImgs(key) {
 function renderMemes() {
     var memes = loadMemes()
     if (!memes) return
+
     var strHTMLs = memes.map(function (meme) {
         return `
             <div class="meme-card flex column">
@@ -58,7 +60,7 @@ function addListeners() {
     addTouchListeners()
     window.addEventListener('resize', () => {
         resizeCanvas()
-        renderCanvas()
+        // renderCanvas()
     })
 }
 
@@ -192,24 +194,24 @@ function addActive(elBtn) {
 }
 
 function openCanvas(imgId) {
-    createMeme(imgId)
     openPage('editor')
-    renderCanvas()
     resizeCanvas()
+    createMeme(imgId)
+    renderCanvas()
     selectInput()
     focusInput()
 }
 
-function renderCanvas(userMeme) {
-    var meme = userMeme
-    if (!userMeme) meme = getMeme()
+function renderCanvas() {
+    var meme = getMeme()
     var img = new Image()
-    img.src = `img/${meme.selectedImgId}.jpg`
+    var currImg = getImgById(meme.selectedImgId)
+    img.src = currImg.url
     img.onload = function () {
         clearCanvas()
         setInputText()
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-        meme.lines.forEach(function (line) {
+        meme.lines.forEach(line => {
             drawText(line, line.pos.x, line.pos.y)
             drawRect()
             drowSticker()
@@ -250,7 +252,7 @@ function drawRect() {
 function drowSticker() {
     var meme = getMeme()
     if (!meme.sticker.id) return
-    var img = new Image()
+    const img = new Image()
     img.src = `img/sticker-${meme.sticker.id}.png`
     img.onload = () => {
         gCtx.drawImage(img, meme.sticker.pos.x, meme.sticker.pos.y, 100, 100)
@@ -365,7 +367,8 @@ function onEditMeme(imgContent) {
     var meme = getMemeByImg(imgContent)
     removeMeme(imgContent)
     openPage('editor')
-    renderCanvas(meme)
+    setSavedMeme(meme)
+    renderCanvas()
     focusInput()
     selectInput()
 }
@@ -383,9 +386,32 @@ function resizeCanvas() {
     gCanvas.style.height = '100%'
 }
 
-function openSaveModal(){
+
+function openSaveModal() {
     document.querySelector('.save-modal').style.top = '0vh'
     setTimeout(() => {
         document.querySelector('.save-modal').style.top = '-7vh'
     }, 2000);
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, onAddUserImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader()
+
+    reader.onload = function (event) {
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function onAddUserImg(img) {
+    const addedImg = addUserImg(img)
+    createMeme(addedImg.id)
+    renderCanvas()
 }

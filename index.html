@@ -77,7 +77,7 @@
                     <button class="setting-btn share-btn publish-btn inactive-btn" type="submit"></button>
                     <a href="#" class="setting-btn download-btn publish-btn inactive-btn" onclick="onDownloadImg(this)" download="my-img.jpg"></a>
                     <button class="setting-btn upload-btn" type="submit">
-                        <input class="upload-input" type="file" oninput="onUploadImg(this.value)">
+                        <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
                     </button>
                     <div class="share-container"></div>
                 </form>
