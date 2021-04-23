@@ -4,11 +4,13 @@ let gCanvas
 let gCtx
 let gStartPos
 let isPublishActive = false
+
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function init() {
     gCanvas = document.querySelector('#editor-canvas')
     gCtx = gCanvas.getContext('2d')
+    doTrans()
     renderImgs()
     renderMemes()
     renderKeywords()
@@ -146,6 +148,21 @@ function isStickerClicked(clickedPos) {
     if (distanceX < 0 || distanceX > currSticker.size) isClicked = false
     if (distanceY < 0 || distanceY > currSticker.size) isClicked = false
     return isClicked
+}
+
+function onSetLang(lang) {
+    setLang(lang);
+    if (lang === 'he'){
+        document.body.classList.add('heb')
+        document.querySelector('.hero-txt').classList.add('heb')
+
+    } 
+    else{
+        // document.body.classList.remove('rtl')
+        document.querySelector('.hero-txt').classList.remove('heb')
+    } 
+    doTrans();
+    // render();
 }
 
 function openPage(pageName) {

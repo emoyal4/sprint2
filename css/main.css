@@ -4,7 +4,8 @@
 
 /* TIPOGRAPHY */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;700&family=Rubik:wght@300;400;500&display=swap');
+
 /* BASE */
 
 html {
@@ -29,7 +30,7 @@ html::-webkit-scrollbar-thumb:hover {
 body {
     margin: 0;
     background-color: #22252c;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins','Rubik', sans-serif;
 }
 
 header {
@@ -132,6 +133,10 @@ input {
     color: #00a846;
 }
 
+.select-lang option {
+    color: black;
+}
+
 .logo {
     height: 20px;
     min-width: 100px;
@@ -152,11 +157,10 @@ input {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 2vw;
     background-color: white;
-    background-image: url(../img/hero-trans.png);
+    background-image: url(../img/hero.PNG);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position-y: 1vw;
-    background-size: 50%;
+    box-shadow: 0 1px 8px 2px #0000008a
 }
 
 @media (min-width: 450px) {
@@ -188,6 +192,11 @@ input {
 
 .hero button:hover {
     animation: hero-btn .5s;
+}
+
+.hero-txt.heb{
+    color: black;
+    -webkit-text-stroke: 0vw rgba(255, 255, 255, 0);
 }
 
 @keyframes hero-btn {
@@ -660,3 +669,5 @@ input {
     top: 0px;
     box-shadow: 0px 0px 0px rgba(92, 92, 92, 0.55), inset 0px 0px 0 rgba(255, 255, 255, 0.58);
 }
+
+

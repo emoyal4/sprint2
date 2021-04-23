@@ -17,16 +17,20 @@
         <header class="flex">
             <img class="logo" src="img/LOGO.png" onclick="openPage('gallery')">
             <div class="header-btn-container">
-                <button class="header-btn btn-gallery active" onclick="openPage('gallery')">Gallery</button>
-                <button class="header-btn btn-editor" onclick="openPage('editor')">Editor</button>
-                <button class="header-btn btn-meme" onclick="openPage('meme')">Meme</button>
+                <button class="header-btn btn-gallery active" onclick="openPage('gallery')" data-trans="gallery">Gallery</button>
+                <button class="header-btn btn-editor" onclick="openPage('editor')" data-trans="editor">Editor</button>
+                <button class="header-btn btn-meme" onclick="openPage('meme')" data-trans="memes">Memes</button>
+                <select class="select-lang" onchange="onSetLang(this.value)">
+                    <option value="en">En</option>
+                    <option value="he">He</option>
+                </select>
             </div>
         </header>
 
         <main class="gallery-container container">
             <section class="hero">
-                <h1>Create and share your own viral memes in minutes</h1>
-                <a href="#gallery"><button>Start Now</button></a>
+                <h1 class="hero-txt" data-trans="title">Create and share your own viral memes in minutes</h1>
+                <a href="#gallery"><button data-trans="start-Now">Start Now</button></a>
             </section>
             <section class="search-area">
                 <input class="input-keywords" type="text" onkeyup="renderImgByStr(this.value)">
@@ -89,15 +93,16 @@
         </main>
 
         <main class="meme-container container">
-            <h1>Save Your Memes Here!</h1>
+            <h1 data-trans="meme-gallery-placeholder">Save Your Memes Here!</h1>
         </main>
 
         <div class="save-modal">
-            <h3>Saved</h3>
+            <h3 data-trans="Saved">Saved</h3>
         </div>
 
     </div>
 
+    <script src="js/i18n.service.js"></script>
     <script src="js/upload.service.js"></script>
     <script src="js/storage.service.js"></script>
     <script src="js/meme.service.js"></script>
