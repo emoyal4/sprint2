@@ -36,7 +36,3 @@ function doUploadImg(elForm, onSuccess) {
             console.error(err)
         })
 }
-
-
-
-

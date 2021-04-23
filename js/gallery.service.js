@@ -66,7 +66,6 @@ function updateKeyword(str) {
     currKeyword.clicks++
 }
 
-
 function getImgById(imgId) {
     return gImgs.find(img => img.id === imgId)
 }

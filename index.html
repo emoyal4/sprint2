@@ -15,7 +15,7 @@
     <div class="body-container flex column">
 
         <header class="flex">
-            <img class="logo" src="img/LOGO.png">
+            <img class="logo" src="img/LOGO.png" onclick="openPage('gallery')">
             <div class="header-btn-container">
                 <button class="header-btn btn-gallery active" onclick="openPage('gallery')">Gallery</button>
                 <button class="header-btn btn-editor" onclick="openPage('editor')">Editor</button>
@@ -24,11 +24,15 @@
         </header>
 
         <main class="gallery-container container">
-            <section class="search-area">
-                <input class="input-keywords container" type="text" onkeyup="renderImgByStr(this.value)">
-                <div class="keywords-area container"></div>
+            <section class="hero">
+                <h1>Create and share your own viral memes in minutes</h1>
+                <a href="#gallery"><button>Start Now</button></a>
             </section>
-            <section class="img-gallery container grid"></section>
+            <section class="search-area">
+                <input class="input-keywords" type="text" onkeyup="renderImgByStr(this.value)">
+                <div class="keywords-area"></div>
+            </section>
+            <section id="gallery" class="img-gallery container grid"></section>
         </main>
 
         <main class="editor-container">

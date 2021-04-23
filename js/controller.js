@@ -4,7 +4,6 @@ let gCanvas
 let gCtx
 let gStartPos
 let isPublishActive = false
-
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function init() {
