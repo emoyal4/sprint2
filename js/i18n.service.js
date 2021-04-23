@@ -4,15 +4,15 @@ let gCurrLang = 'en';
 
 let gTrans = {
     gallery: {
-        en: 'gallery',
+        en: 'Gallery',
         he: 'גלריה'
     },
     editor: {
-        en: 'editor',
+        en: 'Editor',
         he: 'עריכה'
     },
     memes: {
-        en: 'memes',
+        en: 'Memes',
         he: 'מוכנים'
     },
     title: {
