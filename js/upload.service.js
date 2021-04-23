@@ -6,17 +6,18 @@ function uploadImg(elForm, ev) {
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `
-            <div class="share-confirm-modal flex"> 
-                <h3> Are you sure you wish to share this meme? </h3>
-                <div class="modal-btn-area flex"> 
-                    <a class="btn confirm-modal-btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'), closeModal() ; return false;">
-                    Confirm
-                    </a>
-                    <a class="close-modal-btn" onclick="closeModal()">
-                    Close
-                    </a>
-                </div>
-            </div>`
+        <div class="share-confirm-modal flex"> 
+        <h3 data-trans="share-confirm">Are you sure you wish to share this meme?</h3>
+        <div class="modal-btn-area flex"> 
+        <a class="btn confirm-modal-btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'), closeModal() ; return false;" data-trans="share-ok">
+        Confirm
+        </a>
+        <a class="close-modal-btn" onclick="closeModal()" data-trans="share-close">
+        Close
+        </a>
+        </div>
+        </div>`
+        doTrans()
     }
     let inputVal = elForm.querySelector('input').value
     doUploadImg(elForm, onSuccess, inputVal);
@@ -28,13 +29,13 @@ function doUploadImg(elForm, onSuccess) {
         method: 'POST',
         body: formData
     })
-        .then(function (res) {
-            return res.text()
-        })
-        .then(onSuccess)
-        .catch(function (err) {
-            console.error(err)
-        })
+    .then(function (res) {
+        return res.text()
+    })
+    .then(onSuccess)
+    .catch(function (err) {
+        console.error(err)
+    })
 }
 
 

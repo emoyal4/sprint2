@@ -153,12 +153,12 @@ function isStickerClicked(clickedPos) {
 function onSetLang(lang) {
     setLang(lang);
     if (lang === 'he'){
-        document.body.classList.add('heb')
+        document.body.classList.add('rtl')
         document.querySelector('.hero-txt').classList.add('heb')
 
     } 
     else{
-        // document.body.classList.remove('rtl')
+        document.body.classList.remove('rtl')
         document.querySelector('.hero-txt').classList.remove('heb')
     } 
     doTrans();
@@ -387,10 +387,6 @@ function onEditMeme(imgContent) {
     renderCanvas()
     focusInput()
     selectInput()
-}
-
-function onUploadImg(img) {
-    alert('This function is not available now')
 }
 
 function closeModal() {

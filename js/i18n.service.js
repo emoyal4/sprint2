@@ -23,10 +23,26 @@ let gTrans = {
         en: 'Start Now',
         he: 'התחל עכשיו'
     },
-   ' meme-gallery-placeholder': {
+   'meme-gallery-placeholder': {
         en: 'Save Your Memes Here!',
         he: 'המימז החדשים שלך נשמרים כאן'
     },
+   'saved': {
+        en: 'Saved',
+        he: 'נשמר'
+    },
+   'share-confirm': {
+        en: 'Are you sure you wish to share this meme?',
+        he: 'נא אשר את שיתוף המים'
+    },
+   'share-ok': {
+        en: 'Confirm',
+        he: 'מאשר'
+    },
+   'share-close': {
+        en: 'Close',
+        he: 'חזור'
+    }
 }
 
 
